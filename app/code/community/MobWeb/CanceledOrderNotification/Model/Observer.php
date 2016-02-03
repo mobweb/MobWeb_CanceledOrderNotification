@@ -20,10 +20,12 @@ class MobWeb_CanceledOrderNotification_Model_Observer {
                 Mage::helper('canceledordernotification')->log('Order status is in list of notification statuses: ' . print_r(array($orderStatus, $notificationStatuses), true));
 
                 // Check if a recipient has been defined
-                if($recipient = Mage::getStoreConfig('sales_email/order/copy_to', $storeId)) {
+                if($recipients = Mage::getStoreConfig('sales_email/order/copy_to', $storeId)) {
 
-                    // Trigger the email
-                    Mage::helper('canceledordernotification/notification')->send($order, $recipient);
+                    // Trigger the email(s)
+                    foreach(explode(',', $recipients)) {
+                        Mage::helper('canceledordernotification/notification')->send($order, $recipient);
+                    }
                 } else {
                     Mage::helper('canceledordernotification')->log('No order email copy recipient defined, not sending a notification email');
                 }

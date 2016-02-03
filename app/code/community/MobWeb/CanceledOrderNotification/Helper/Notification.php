@@ -8,7 +8,7 @@ class MobWeb_CanceledOrderNotification_Helper_Notification extends Mage_Core_Hel
      *
      */
     public function send($order, $recipient) {
-        //$this->queueNewOrderEmail($order, $recipient);
+        //if($this->queueNewOrderEmail($order, $recipient)) {
         if($this->sendTransactional($order, $recipient)) {
             Mage::helper('canceledordernotification')->log('Notification email sent to ' . $recipient);
         }
@@ -62,8 +62,8 @@ class MobWeb_CanceledOrderNotification_Helper_Notification extends Mage_Core_Hel
         $forceMode = true;
 
         // Get the destination email addresses to send copies to
-        $copyTo = Mage::getStoreConfig(Mage_Sales_Model_Order::XML_PATH_EMAIL_COPY_TO, $storeId);
-        $copyTo = explode(',', $copyTo);
+        // $copyTo = Mage::getStoreConfig(Mage_Sales_Model_Order::XML_PATH_EMAIL_COPY_TO, $storeId);
+        $copyTo = array($recipient);
         // $copyMethod = Mage::getStoreConfig(Mage_Sales_Model_Order::XML_PATH_EMAIL_COPY_METHOD, $storeId);
         $copyMethod = 'copy';
 
