@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <MobWeb_CanceledOrderNotification>
+            <version>0.0.1</version>
+        </MobWeb_CanceledOrderNotification>
+    </modules>
+    <global>
+        <models>
+            <canceledordernotification>
+                <class>MobWeb_CanceledOrderNotification_Model</class>
+            </canceledordernotification>
+        </models>
+        <helpers>
+            <canceledordernotification>
+                <class>MobWeb_CanceledOrderNotification_Helper</class>
+            </canceledordernotification>
+        </helpers>
+        <events>
+            <sales_order_save_after>
+                <observers>
+                    <canceledordernotification>
+                        <type>singleton</type>
+                        <class>canceledordernotification/observer</class>
+                        <method>salesOrderSaveAfter</method>
+                    </canceledordernotification>
+                </observers>
+            </sales_order_save_after>
+        </events>
+    </global>
+ </config>
